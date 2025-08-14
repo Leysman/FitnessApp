@@ -16,10 +16,27 @@ const goals = require("./routes/goals");
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:5173', // Разреши Vite-фронтенд
-  credentials: true               // Если будешь использовать cookie в будущем
-}));
+// Разрешённые источники берём из ENV, иначе по умолчанию только локалхост
+const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:5173')
+  .split(',')
+  .map(o => o.trim());
+
+const corsOptions = {
+  origin(origin, callback) {
+    // Разрешаем запросы без Origin (например, curl/health-check) и из списка allowlist
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
+  credentials: true,
+  methods: ['GET','HEAD','PUT','PATCH','POST','DELETE'],
+  allowedHeaders: ['Content-Type','Authorization']
+};
+
+app.use(cors(corsOptions));
+// (опционально) чтобы preflight OPTIONS тоже обрабатывался теми же правилами:
+app.options('*', cors(corsOptions));
 
 
 
