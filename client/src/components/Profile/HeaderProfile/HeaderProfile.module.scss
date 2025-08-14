@@ -1,0 +1,48 @@
+/* components/Profile/HeaderProfile/HeaderProfile.module.scss */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 50px;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.name {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+}
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+.number {
+  font-weight: 600;
+  margin-left: 10px;
+}
+.label {
+  font-size: 18px;
+  color: black;
+}
+
+.email {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.wrapperFollowers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

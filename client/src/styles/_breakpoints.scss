@@ -1,0 +1,22 @@
+// Телефон:   < 768px
+// Планшет:   768px – 1023px
+// Ноутбук:   1024px – 1299px
+// Десктоп:   ≥ 1300px (опційно)
+
+$phone-max:   767px;
+$tablet-min:  768px;
+$tablet-max:  1023px;
+$laptop-min:  1024px;
+$laptop-max:  1299px;
+$desktop-min: 1300px;
+
+// «тільки» ці діапазони
+@mixin phone      { @media (max-width: $phone-max) { @content; } }
+@mixin tablet     { @media (min-width: $tablet-min) and (max-width: $tablet-max) { @content; } }
+@mixin laptop     { @media (min-width: $laptop-min) and (max-width: $laptop-max) { @content; } }
+@mixin desktop    { @media (min-width: $desktop-min) { @content; } } // опційно
+
+// зручно мати ще такі
+@mixin tablet-up  { @media (min-width: $tablet-min) { @content; } }   // ≥768
+@mixin laptop-up  { @media (min-width: $laptop-min) { @content; } }   // ≥1024
+@mixin laptop-down{ @media (max-width: $laptop-max) { @content; } }   // ≤1299

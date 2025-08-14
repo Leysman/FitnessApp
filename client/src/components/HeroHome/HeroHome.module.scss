@@ -1,0 +1,80 @@
+@use '../../styles/_breakpoints' as bp;
+
+.hero {
+  max-width: fit-content;
+  margin: 0 auto;
+  background-color: #e8fedc;
+}
+
+.wrapper {
+  display: flex;
+  margin: 0 auto;
+  justify-content: start;
+  align-items: center;
+  padding: 10px 80px;
+  
+  border-radius: 1rem;
+  flex-wrap: wrap;
+
+  @include bp.tablet {
+      flex-direction: column;
+    }
+  
+}
+
+.content {
+  max-width: 100%;
+  width: 400px;
+
+  h1 {
+    font-size: 52px;
+    font-weight: 600;
+    color: #064421;
+    margin-bottom: 20px;
+
+      @include bp.phone {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    font-size: 24px;
+    color: #1c3412;
+    margin-bottom: 7rem;
+      @include bp.phone {
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+    }
+  }
+}
+
+.cta {
+  padding: 20px 40px;
+  background-color: #139a49;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0ea972;
+  }
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    width: 350px;
+    height: auto;
+
+    @include bp.phone {
+      margin-top: 1rem;
+      width: 250px;
+    }
+  }
+}

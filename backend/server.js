@@ -4,15 +4,24 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const path = require('path');
 require('dotenv').config();
-
+const cors = require('cors');
 const globalConfigs = require('./routes/globalConfigs');
 const users = require('./routes/user');
 const posts = require('./routes/post');
 const comments = require('./routes/comments');
 const awards = require('./routes/awards');
+const workouts = require("./routes/workouts");
+const goals = require("./routes/goals");
 // const mainRoute = require('./routes/index');
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Разреши Vite-фронтенд
+  credentials: true               // Если будешь использовать cookie в будущем
+}));
+
+
 
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -39,6 +48,16 @@ app.use('/api/users', users);
 app.use('/api/posts', posts);
 app.use('/api/comments', comments);
 app.use('/api/awards', awards);
+app.use(
+  "/api/workouts",
+  passport.authenticate("jwt", { session: false }),
+  workouts
+);
+app.use(
+  "/api/goals",                                          
+  passport.authenticate("jwt", { session: false }),      
+  goals                                                  
+);
 // app.use('/', mainRoute);
 
 // Server static assets if in production

@@ -14,6 +14,7 @@ const Award = require("../models/Award");
 // Load validation helper to validate all received fields
 const validateRegistrationForm = require("../validation/validationHelper");
 
+const validateEditProfile = require("../validation/validateEditProfile");
 // Load helper for creating correct query to save user to DB
 const queryCreator = require("../commonHelpers/queryCreator");
 const filterParser = require("../commonHelpers/filterParser");
@@ -51,7 +52,7 @@ exports.createUser = (req, res, next) => {
 
       // Create query object for user for saving him to DB
       const newUser = new User(queryCreator(initialQuery));
-
+      newUser.avatarUrl = '';
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) {
@@ -114,6 +115,7 @@ exports.loginUser = async (req, res, next) => {
             firstName: user.firstName,
             lastName: user.lastName,
             isAdmin: user.isAdmin,
+            avatarUrl: user.avatarUrl,
           }; // Create JWT Payload
 
           // Sign Token
@@ -142,77 +144,53 @@ exports.loginUser = async (req, res, next) => {
 };
 
 // Controller for editing user personal info
-exports.editUserInfo = (req, res) => {
-  // Clone query object, because validator module mutates req.body, adding other fields to object
-  const initialQuery = _.cloneDeep(req.body);
+exports.editUserInfo = async (req, res) => {
+  try {
+    // 1) Клонируем тело запроса
+    const initialQuery = _.cloneDeep(req.body);
 
-  // Check Validation
-  const { errors, isValid } = validateRegistrationForm(req.body);
+    // 2) Валидация только тех полей, что можно менять
+    const dataToValidate = {
+      email:     req.body.email,
+      firstName: req.body.firstName,
+      lastName:  req.body.lastName,
+    };
+    const { errors, isValid } = validateEditProfile(dataToValidate);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
 
-  if (!isValid) {
-    return res.status(400).json(errors);
-  }
+    // 3) Достаём пользователя
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ id: "User not found" });
+    }
 
-  User.findOne({ _id: req.user.id })
-    .then((user) => {
-      if (!user) {
-        errors.id = "User not found";
-        return res.status(404).json(errors);
+    // 4) Проверяем уникальность email
+    if (req.body.email && req.body.email !== user.email) {
+      const exists = await User.findOne({ email: req.body.email });
+      if (exists) {
+        return res.status(400).json({ email: `Email ${req.body.email} already exists` });
       }
+    }
 
-      const currentEmail = user.email;
-      const currentLogin = user.login;
-      let newEmail;
-      let newLogin;
+    // 5) Если на фронте пришёл файл — сохраняем его URL
+    if (req.file && req.file.path) {
+      initialQuery.avatarUrl = req.file.path;
+    }
 
-      if (req.body.email) {
-        newEmail = req.body.email;
-
-        if (currentEmail !== newEmail) {
-          User.findOne({ email: newEmail }).then((user) => {
-            if (user) {
-              errors.email = `Email ${newEmail} is already exists`;
-              res.status(400).json(errors);
-              return;
-            }
-          });
-        }
-      }
-
-      if (req.body.login) {
-        newLogin = req.body.login;
-
-        if (currentLogin !== newLogin) {
-          User.findOne({ login: newLogin }).then((user) => {
-            if (user) {
-              errors.login = `Login ${newLogin} is already exists`;
-              res.status(400).json(errors);
-              return;
-            }
-          });
-        }
-      }
-
-      // Create query object for user for saving him to DB
-      const updatedUser = queryCreator(initialQuery);
-
-      User.findOneAndUpdate(
-        { _id: req.user.id },
-        { $set: updatedUser },
-        { new: true },
-      )
-        .then((user) => res.json(user))
-        .catch((err) =>
-          res.status(400).json({
-            message: `Error happened on server: "${err}" `,
-          }),
-        );
-    })
-    .catch((err) =>
-      res.status(400).json({
-        message: `Error happened on server:"${err}" `,
-      }),
+    // 6) Апдейтим и возвращаем новый профиль
+    const updated = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: queryCreator(initialQuery) },
+      { new: true }
     );
+    return res.json(updated);
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: `Server error: ${err.message}` });
+  }
 };
 
 // Controller for editing user password

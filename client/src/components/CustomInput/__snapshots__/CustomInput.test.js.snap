@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`CustomInput snapshots renders formatted input (with format) 1`] = `
+<DocumentFragment>
+  <div
+    class="inputWrapper"
+  >
+    <label
+      for="phone"
+    >
+      Phone
+    </label>
+    <div
+      class="fieldInner"
+    >
+      <input
+        aria-invalid="false"
+        format="+38 (###) ###-##-##"
+        id="phone"
+        name="phone"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CustomInput snapshots renders input with error 1`] = `
+<DocumentFragment>
+  <div
+    class="inputWrapper error"
+  >
+    <label
+      for="email"
+    >
+      Email
+    </label>
+    <div
+      class="fieldInner"
+    >
+      <input
+        aria-invalid="true"
+        id="email"
+        name="email"
+        type="text"
+        value=""
+      />
+    </div>
+    <p
+      class="errorMessage"
+    >
+      Email is required
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CustomInput snapshots renders regular input (no format) 1`] = `
+<DocumentFragment>
+  <div
+    class="inputWrapper"
+  >
+    <label
+      for="name"
+    >
+      Name
+    </label>
+    <div
+      class="fieldInner"
+    >
+      <input
+        aria-invalid="false"
+        id="name"
+        name="name"
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,27 @@
+@use '../../styles/_breakpoints' as bp;
+
+.link {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid #10b981;
+  border-radius: 6px;
+  color: #10b981;
+  transition: background-color 0.2s, color 0.2s;
+
+  @include bp.phone {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+  }
+
+  &:hover {
+    background-color: #10b981;
+    color: #ffffff;
+  }
+
+  &.active {
+    background: #10b981;
+    color: #fff;
+  }
+}

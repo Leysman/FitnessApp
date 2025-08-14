@@ -1,0 +1,65 @@
+@use '../../styles/_breakpoints' as bp;
+
+.container {
+  /* базовые стили */
+  width: 100%;
+  max-width: 1120px;   /* вместо фиксированных 1200px */
+  margin: 0 auto;
+  padding: 40px 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  /* ноутбуки 1024–1299 */
+  @include bp.laptop {
+    max-width: 1000px;
+    padding-top: 36px;
+    gap: 18px;
+  }
+
+  /* планшеты 768–1023 */
+  @include bp.tablet {
+    max-width: 720px;
+    padding: 32px 16px 20px;
+    gap: 16px;
+  }
+
+  /* телефоны <768 */
+  @include bp.phone {
+    max-width: 100%;
+    padding: 24px 12px 16px;
+    gap: 14px;
+  }
+
+  /* большие десктопы ≥1300 (опционально тянуть по высоте экрана) */
+  @include bp.desktop {
+    min-height: 100vh;
+  }
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 600;
+  color: #064421;
+  line-height: 1.15;
+  text-align: center;
+  margin: 0 0 8px;
+
+  @include bp.laptop { font-size: 34px; }
+  @include bp.tablet { font-size: 30px; }
+  @include bp.phone  { font-size: 26px; }
+}
+
+/* Если хочешь ограничить ширину формы без правок внутри компонента:
+   заверни <SignupForm /> в <div className={styles.formContainer}>…</div> */
+.formContainer {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+
+  @include bp.laptop { max-width: 400px; }
+  @include bp.tablet { max-width: 380px; }
+  @include bp.phone  { max-width: fit-content; }
+}

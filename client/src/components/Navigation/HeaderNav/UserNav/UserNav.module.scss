@@ -1,0 +1,50 @@
+@use '../../../../styles/breakpoints' as bp;
+
+.authLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  @include bp.phone {
+    gap: 5px;
+  }
+}
+
+.linkNav {
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 5px;
+  border: 1px solid #10b981;
+  border-radius: 6px;
+  color: #10b981;
+  transition: background-color 0.2s, color 0.2s;
+
+  &:hover {
+    background-color: #10b981;
+    color: #ffffff;
+  }
+
+  &.active {
+    background: #10b981;
+    color: #fff;
+  }
+}
+
+.btnLogout {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logout {
+  width: 38px;
+  height: 38px;
+}
+
+.setting {
+  width: 32px;
+  height: 32px;
+  color: #10b981;
+}

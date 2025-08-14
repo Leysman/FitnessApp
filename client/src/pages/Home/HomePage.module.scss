@@ -1,0 +1,131 @@
+@use '../../styles/_breakpoints' as bp;
+
+.container {
+  padding: 20px;
+  margin: 0 auto;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 800px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  /* чтобы вложенные блоки (поиск, дропдаун, форма, лента) могли сжиматься */
+  & > * { min-width: 0; }
+
+  @include bp.desktop {
+    max-width: 920px;
+    gap: 0.75rem;
+  }
+
+  @include bp.laptop {
+    max-width: 840px;
+    padding: 20px 16px;
+    gap: 0.6rem;
+  }
+
+  @include bp.tablet {
+    max-width: 720px;
+    padding: 16px;
+    gap: 0.5rem;
+  }
+
+  @include bp.phone {
+    max-width: 375px;
+    padding: 12px;
+    gap: 0.5rem;
+    /* на телефонах не насилуем высоту */
+    min-height: auto;
+  }
+}
+
+/* выпадающий список найденных пользователей */
+.userDropdown {
+  margin-top: 6px;
+  padding: 6px;
+  list-style: none;
+
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+  max-height: 320px;
+  overflow-y: auto;
+
+  li {
+    padding: 6px;
+    border-radius: 8px;
+    min-width: 0;
+
+    & + li { margin-top: 4px; }
+    &:hover { background: #f7fafc; }
+  }
+
+  @include bp.tablet {
+    max-height: 360px;
+  }
+
+  @include bp.phone {
+    padding: 4px;
+    border-radius: 10px;
+    max-height: 280px;
+  }
+}
+
+/* сообщение об ошибке */
+.error {
+  margin: 8px 0;
+  padding: 10px 12px;
+  border: 1px solid #fecaca;
+  background: #fff1f2;
+  color: #b91c1c;
+  border-radius: 10px;
+  font-size: 15px;
+  line-height: 1.4;
+
+  @include bp.phone { font-size: 14px; }
+}
+
+.loadMore {
+  display: flex;
+  justify-content: center;
+  margin: 12px auto 24px;
+
+  @include bp.phone {
+    width: 100%;
+  }
+}
+
+.loadMoreButton {
+  padding: 0.6rem 1rem;
+  background: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover:not(:disabled) { filter: brightness(0.95); }
+  &:focus-visible { outline: 2px solid #10b981; outline-offset: 2px; }
+
+  &:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+  }
+
+  @include bp.tablet {
+    padding: 0.65rem 1.1rem;
+  }
+
+  @include bp.phone {
+    width: fit-content;
+    padding: 0.75rem 1rem;
+    font-size: 16px;
+  }
+}

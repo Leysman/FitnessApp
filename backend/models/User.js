@@ -33,6 +33,7 @@ const UserSchema = new Schema(
     },
     avatarUrl: {
       type: String,
+      default: '',
     },
     isAdmin: {
       type: Boolean,
@@ -47,6 +48,10 @@ const UserSchema = new Schema(
     awards: [{ type: Schema.Types.ObjectId, ref: "awards" }],
     followers: [{ type: Schema.Types.ObjectId, ref: "users" }],
     followedBy: [{ type: Schema.Types.ObjectId, ref: "users" }],
+    lastClickWorkout: {
+    type: Date,
+    default: null
+    },
     date: {
       type: Date,
       default: Date.now,

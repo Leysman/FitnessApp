@@ -1,0 +1,33 @@
+@use '../../styles/_breakpoints' as bp;
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+
+  @include bp.phone {
+    font-size: 1.2rem;
+  }
+
+  @include bp.tablet {
+    font-size: 1.5rem;
+  }
+
+  span {
+    margin-left: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+      @include bp.phone {
+        display: none;
+    }
+  }
+
+  &:hover {
+    color: #059669;
+    transition: color 0.2s ease;
+  }
+}
+

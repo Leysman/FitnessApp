@@ -1,0 +1,65 @@
+// AwardProgress.module.scss
+
+.container {
+  position: relative;
+  display: inline-block;
+  /* ширина/высота берутся из style={{ width: size, height: size }} */
+   margin: 30px 10px 15px 0;
+}
+
+.achievedPercent {
+  position: absolute;
+  /* смещаем h2 над SVG: нижний край процента прямо у верхнего края контейнера */
+  bottom: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;          // убираем дефолтные h2‑отступы
+  padding: 0;
+  z-index: 2;
+  font-size: 17px;
+  font-weight: 600;
+  color: #064421;
+  pointer-events: none;
+}
+
+.svg {
+  display: block;         // убирает нижний пробел при inline‑svg
+  transform: rotate(-90deg);
+}
+
+.bgCircle {
+  transition: stroke 0.3s;
+  stroke: rgba(0,0,0,0.1);
+}
+
+.progressCircle {
+  transition: stroke-dashoffset 1.5s ease;
+}
+
+.iconWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgAward {
+  width: 75%;
+  height: auto;
+  pointer-events: none;
+}
+
+.achievedTitle {
+  /* вынесите заголовок ниже родительского блока, 
+     либо если он внутри .container, то тоже absolute не нужен */
+  text-align: center;
+  margin: 10px 0 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #064421;
+}
+

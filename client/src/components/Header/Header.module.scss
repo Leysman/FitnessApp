@@ -1,0 +1,26 @@
+@use '../../styles/_breakpoints' as bp;
+
+.headerAuth {
+  background-color: #e5f8f1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding: 1rem 2rem;
+  justify-content: space-around;
+  align-items: center;
+
+
+  @include bp.phone {
+    justify-content: start;
+    gap: 1rem;
+  }
+}

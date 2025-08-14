@@ -1,0 +1,66 @@
+@use '../../styles/_breakpoints' as bp;
+
+.footer {
+  background-color: #139a49;
+  padding: 2rem 1rem;
+  color: #111827;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logoSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: #064421;
+
+
+      @include bp.phone {
+        font-size: 1.2rem;
+      }
+
+      span {
+        margin-left: 10px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+  }
+
+  .navLinks {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+
+    a {
+      text-decoration: none;
+      color: #064421;
+      transition: color 0.2s;
+      font-size: 22px;
+      font-weight: 700;
+      &:hover {
+        color: #10b981;
+      }
+    }
+  }
+
+  .rights {
+    color: #064421;
+    font-size: 16px;
+    font-weight: 600;
+
+      @include bp.phone {
+        font-size: 0.6rem;
+        font-weight: 700;
+    }
+  }
+
+  
+}

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-
+const parser   = require("../config/multerCloudinary");
 //Import controllers
 const {
   createUser,
@@ -29,7 +29,12 @@ router.post("/login", loginUser);
 // @route   PUT /api/users
 // @desc    Return current user
 // @access  Private
-router.put("/", passport.authenticate("jwt", { session: false }), editUserInfo);
+router.put(
+  "/",
+   passport.authenticate("jwt", { session: false }),
+   parser.single("avatar"),
+  editUserInfo
+  );
 
 // @route   POST /api/users/update-password
 // @desc    Return current user and success or error message

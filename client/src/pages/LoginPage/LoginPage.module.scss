@@ -1,0 +1,124 @@
+@use '../../styles/_breakpoints' as bp;
+
+.loginPageSection {
+  padding-top: 40px;
+  display: flex;
+  justify-content: center;
+
+  // На крупных экранах тянем секцию по высоте экрана
+  @include bp.laptop-up {
+    min-height: 100vh;
+  }
+
+  // На телефонах не фиксируем высоту — пусть контент задаёт её
+  @include bp.phone {
+    padding-top: 24px;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 0 16px;
+
+  @include bp.laptop {
+    gap: 24px;
+  }
+
+  @include bp.tablet {
+    gap: 16px;
+  }
+
+  @include bp.phone {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 0 12px;
+  }
+}
+
+.content {
+  flex: 1 1 420px;
+  max-width: 480px;
+
+  @include bp.laptop {
+    max-width: 440px;
+  }
+
+  @include bp.tablet {
+    max-width: 420px;
+  }
+
+  @include bp.phone {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .titleLogin {
+    font-size: 52px;
+    font-weight: 600;
+    color: #064421;
+    line-height: 1.1;
+    margin-bottom: 20px;
+
+    @include bp.laptop { font-size: 44px; }
+    @include bp.tablet { font-size: 40px; }
+    @include bp.phone  { font-size: 32px; margin-bottom: 16px; }
+  }
+}
+
+.cta {
+  padding: 20px 40px;
+  background-color: #139a49;
+  color: white;
+  border: none;
+  border-radius: 99px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+
+  &:hover { background-color: #0ea972; }
+
+  @include bp.phone {
+    width: 100%;
+    text-align: center;
+    padding: 16px 24px;
+  }
+}
+
+.imageWrapper {
+  flex: 1 1 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include bp.laptop {
+    flex-basis: 420px;
+  }
+
+  @include bp.tablet {
+    flex-basis: 360px;
+  }
+
+  // На телефонах картинку прячем, чтобы форма была в фокусе
+  @include bp.phone {
+    display: none;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+
+    @include bp.laptop { max-width: 480px; }
+    @include bp.tablet { max-width: 420px; }
+  }
+}
+

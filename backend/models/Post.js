@@ -33,7 +33,23 @@ const PostSchema = new Schema(
       default: Date.now,
     },
   },
-  { strict: false },
+  {
+    strict: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
 );
 
-module.exports = Post = mongoose.model("posts", PostSchema);
+// TEXT-index для поля content, чтобы работать с $text
+PostSchema.index({ content: 'text' });
+
+// Виртуальное поле для подсчета комментариев
+PostSchema.virtual('commentCount', {
+  ref: 'comments',         // имя модели Comment (коллекция 'comments')
+  localField: '_id',       // поле в этой схеме
+  foreignField: 'post',    // поле в модели Comment
+  count: true,             // вернуть количество, а не массив
+});
+
+module.exports = mongoose.model("posts", PostSchema);
+

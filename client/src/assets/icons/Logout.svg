@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
+  <!-- Door outline -->
+  <path d="M19 3H9a2 2 0 0 0-2 2v4h2V5h10v14H9v-4H7v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"></path>
+  <!-- Logout arrow -->
+  <path d="M10 17l5-5-5-5v3H3v4h7v3z"></path>
+</svg>

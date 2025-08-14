@@ -1,8 +1,12 @@
-const express = require("express");
-const router = express.Router();
+// routes/post.js
+const express  = require("express");
+const router   = express.Router();
 const passport = require("passport");
 
-//Import controllers
+// Импортируем наш конфиг multer+Cloudinary
+const parser   = require("../config/multerCloudinary");
+
+// Import controllers
 const {
   createPost,
   updatePost,
@@ -13,9 +17,14 @@ const {
 } = require("../controllers/post");
 
 // @route   POST api/posts
-// @desc    Create post
+// @desc    Create post (с поддержкой загрузки до 5 изображений)
 // @access  Private
-router.post("/", passport.authenticate("jwt", { session: false }), createPost);
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  parser.array("images", 5),   // ← вот он: поле "images" и максимум 5 файлов
+  createPost
+);
 
 // @route   PUT api/posts/:id
 // @desc    Update post
@@ -30,9 +39,9 @@ router.put(
 // @desc    Update post likes
 // @access  Private
 router.patch(
-    "/:id",
-    passport.authenticate("jwt", { session: false }),
-    updatePostLikes,
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  updatePostLikes,
 );
 
 // @route   DELETE api/posts/:id
